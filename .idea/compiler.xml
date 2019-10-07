@@ -7,15 +7,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Tp1" />
+        <module name="centrelized" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="centrelized" target="11" />
       <module name="Tp1" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Tp1" options="-parameters" />
+      <module name="centrelized" options="-parameters" />
     </option>
   </component>
 </project>
