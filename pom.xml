@@ -10,13 +10,13 @@
         <version>2.1.1.RELEASE</version>
     </parent>
 
-    <groupId>com.pneedle</groupId>
-    <artifactId>centrelized</artifactId>
+    <groupId>com.big_fat_package</groupId>
+    <artifactId>big_fat_package</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>centrelized</name>
+    <name>big_fat_package</name>
     <!-- FIXME change it to the project's website -->
-    <url>http://www.roborcardsorter.com</url>
+    <url>http://www.big_fat_package.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
