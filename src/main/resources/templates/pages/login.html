@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/template}">
+<head>
+    <title>Log in - Centrelized</title>
+</head>
+<body>
+<section layout:fragment="content" th:remove="tag">
+
+    <div class="py-5 text-center h-100 bg-light cover bg-fixed shadow-sm" style="">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="mx-auto col-md-6 col-10 bg-white p-5 shadow">
+                    <h1 class="mb-4 text-body">Log in</h1>
+                    <form th:action="@{/login}" method="POST">
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder="Enter email" id="form9">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="password" name="password" class="form-control" placeholder="Password"
+                                   id="form10">
+                            <small class="form-text text-muted text-right">
+                                <a href="#"> Recover password</a>
+                            </small>
+                        </div>
+                        <div align="center" th:if="${param.error}">
+                            <p class="text-danger" style="font-size: 20">Email or Password invalid, please verify</p>
+                        </div>
+                        <button type="submit" class="btn btn-primary text-uppercase shadow">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

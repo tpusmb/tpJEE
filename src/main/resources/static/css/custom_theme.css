@@ -1,0 +1,11 @@
+header {
+    background: url('/images/pixel.png') repeat, rgba(0,0,0,0.7)!important;
+}
+video.video_background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}

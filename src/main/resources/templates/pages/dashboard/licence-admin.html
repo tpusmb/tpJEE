@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div layout:fragment="licence-admin">
+
+    <!-- Add Licence -->
+    <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+    <form action="#" th:action="@{/dashboard/licence/create}" th:object="${licence}" method="post" role="form"
+          class="form-horizontal">
+        <label th:if="${#fields.hasErrors('expiry_date')}" th:errors="*{expiry_date}"
+               class="validation-message"></label>
+        <label th:if="${#fields.hasErrors('user_email')}" th:errors="*{user_email}"
+               class="validation-message"></label>
+        <div class="modal fade shadow" id="modalCreatForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Create licence key</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="date" id="expiration-date" class="form-control validate"
+                                   th:field="*{expiry_date}">
+                            <label data-error="wrong" data-success="right" for="expiration-date">Expiration date:
+                                YYYY-MM-DD</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="email" id="for-user" class="form-control validate" th:field="*{user_email}">
+                            <label data-error="wrong" data-success="right" for="for-user">For user email</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-default">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Update Licence -->
+    <form action="#" th:action="@{/dashboard/licence/edit}" th:object="${licence}" method="post" role="form"
+          class="form-horizontal">
+        <label th:if="${#fields.hasErrors('expiry_date')}" th:errors="*{expiry_date}"
+               class="validation-message"></label>
+        <label th:if="${#fields.hasErrors('block')}" th:errors="*{block}"
+               class="validation-message"></label>
+        <label th:if="${#fields.hasErrors('licenceKey')}" th:errors="*{licenceKey}"
+               class="validation-message"></label>
+        <div class="modal fade shadow" id="modalEditForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Edit licence key</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="date" id="expiration-date-edit" class="form-control validate"
+                                   th:field="*{expiry_date}">
+                            <label data-error="wrong" data-success="right" for="expiration-date-edit">Expiration date:
+                                YYYY-MM-DD</label>
+                        </div>
+                        <div class="md-form mb-4">
+
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="checkbox" id="block-key" class="form-control validate"
+                                   th:field="*{block}">
+                            <label data-error="wrong" data-success="right" for="block-key">Block this key</label>
+                        </div>
+                        <div class="md-form mb-3">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="text" id="licence-key-to-edit" class="form-control validate"
+                                   th:field="*{licenceKey}">
+                            <label data-error="wrong" data-success="right" for="licence-key-to-edit">Licence key to
+                                edit</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-default">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</html>

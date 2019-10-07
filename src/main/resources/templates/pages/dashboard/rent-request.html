@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/dashboard}">
+<body>
+<section layout:fragment="content" class="container">
+
+    <h1>Rent request</h1>
+    <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+
+    <div sec:authorize="hasAuthority('ENTREPRIS')" layout:insert="pages/dashboard/rent-request-entreprise :: rent-request-entreprise"
+         th:remove="tag"></div>
+    <div sec:authorize="hasAuthority('ADMIN')" layout:insert="pages/dashboard/rent-request-admin :: rent-request-admin"
+         th:remove="tag"></div>
+
+    <!-- Edit request -->
+    <form action="#" th:action="@{/dashboard/rent-request/edit}" th:object="${rentRequest}" method="post" role="form"
+          class="form-horizontal">
+        <label th:if="${#fields.hasErrors('robot_number')}" th:errors="*{robot_number}"
+               class="validation-message"></label>
+        <label th:if="${#fields.hasErrors('computer_number')}" th:errors="*{computer_number}"
+               class="validation-message"></label>
+        <label th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"
+               class="validation-message"></label>
+        <div class="modal fade shadow" id="modalEditForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Edit rent request</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-6">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="hidden" id="rent-request-to-edit" class="form-control validate" th:field="*{rentRequestID}">
+                        </div>
+                        <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="number" min="1" value="1" id="robot_number-edit" class="form-control validate" th:field="*{robot_number}">
+                            <label data-error="wrong" data-success="right" for="robot_number-edit">Number of robots.</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="number" min="1" value="1" id="computer_number-edit" class="form-control validate" th:field="*{computer_number}">
+                            <label data-error="wrong" data-success="right" for="computer_number-edit">Number of computers.</label>
+                        </div>
+                        <div class="md-form mb-3">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="number" min="1" value="1" id="duration-edit" class="form-control validate" th:field="*{duration}">
+                            <label data-error="wrong" data-success="right" for="duration-edit">The rent time duration in months.</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-default">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="container" th:each="user: ${users}">
+        <h3 th:text="'User: ' + ${user.lastName} + ' ' + ${user.name}"></h3>
+        <h4 th:text="'Contact: ' + ${user.email}"></h4>
+        <button sec:authorize="hasAuthority('ENTREPRIS')" th:attr="data-destination_email=${user.email}" type="button"
+                class="create-rent-request-btn btn btn-primary"
+                data-toggle="modal" data-target="#modalCreatForm">Do a request
+        </button>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Robot number</th>
+                <th scope="col">Computer number</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Ended</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Validate</th>
+                <th scope="col">Upload contract</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rentRequest: ${user.rentRequests}">
+                <td th:text="${rentRequest.robot_number}"></td>
+                <td th:text="${rentRequest.computer_number}"></td>
+                <td th:text="${rentRequest.duration}"></td>
+                <td th:text="${rentRequest.ended}"></td>
+                <td>
+                    <button class="edit-rent-request btn btn-primary a-btn-slide-text" type="button"
+                            id="edit_rent_request"
+                            data-toggle="modal" data-target="#modalEditForm"
+                            th:attr="data-rent_request_to_edit=${rentRequest.rentRequestID},
+                            data-robot_number=${rentRequest.robot_number},
+                            data-computer_number=${rentRequest.computer_number},
+                            data-duration=${rentRequest.duration}">
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <span sec:authorize="hasAuthority('ENTREPRIS')" th:text="${rentRequest.validated}"></span>
+                    <span sec:authorize="hasAuthority('ADMIN')" th:if="${rentRequest.validated}" th:text="${rentRequest.validated}"></span>
+                    <button sec:authorize="hasAuthority('ADMIN')" th:unless="${rentRequest.validated}" class="valid-rent-request btn btn-primary a-btn-slide-text" type="button"
+                            id="validate_rent_request"
+                            data-toggle="modal" data-target="#modalValidateForm"
+                            th:attr="data-rent_request_id=${rentRequest.rentRequestID}">
+                        Validate
+                    </button>
+                </td>
+                <td>
+                    <form sec:authorize="hasAuthority('ENTREPRIS')" th:if="${rentRequest.validated}">
+                        <div class="col-sm-10">
+                            <label class="file-upload btn btn-primary a-btn-slide-text">
+                                <span class="file-upload-text">Upload</span>
+                                <input type="file">
+                            </label>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Scripts -->
+<div layout:fragment="scripts" th:remove="tag">
+    <script src="/js/dashboard/rent-request-actions.js"></script>
+</div>
+</body>
+</html>

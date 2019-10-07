@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/template}">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome - Centrelized</title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+
+<!-- header and introduction of application subject -->
+<header class="py-5 text-center text-white h-100 d-flex align-items-center" style="">
+    <div class="container py-5">
+        <div class="row">
+            <div class="mx-auto col-lg-8 col-md-10">
+                <h1 class="display-3 mb-4">List your cards online</h1>
+                <p class="lead mb-5">Robot Card Sorter is an easy solution to automatize the hard work with MTG cards. </p> <a
+                    class="btn btn-lg btn-primary m-2 text-uppercase shadow" th:href="@{/registration}" style="">Sign up</a> <a
+                    class="btn btn-lg btn-outline-primary m-2 shadow" th:href="@{/login}">Log in</a>
+            </div>
+        </div>
+        <video class="video_background h-100 cover bg-filter bg-dark" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+            <source src="/videos/presentation_robot.mp4" type="video/mp4">
+        </video>
+
+    </div>
+</header>
+<!-- Presentation of robot -->
+<section class="py-5 section-parallax filter-dark h-100 bg-fixed cover"
+         style="	background-image: url('/images/card_1.JPG'), url('/images/cover_4.jpg');	background-position: center center, center center;	background-size: cover, cover;	background-repeat: repeat, repeat;"
+         id="mission">
+    <div class="container py-5 d-none">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <h1 class="display-4 mb-0 text-white">Dark filter</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-md-8 p-3 text-white">
+                <h2 class="mb-4">Practical. Easy-to-use. Cheap.</h2>
+                <p class="lead">Robot Card Sorter makes the listing easy. Plug it and let it work for you, putting cards online on your website or MKM.<br/> <br/>Just order it and try it. No commitment.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Robot fonction -->
+<section class="py-5 bg-fixed bg-white" style="" id="feature_robot">
+    <div class="container">
+        <div class="row">
+            <div class="order-2 order-md-1 col-md-5 d-flex"
+                 style="	background-image: linear-gradient(to bottom, #efefef, #efefef);	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
+                <img class="d-block img-fluid mx-auto my-auto" src="/images/robotvictory.png"
+                     style="	height: 260px;"></div>
+            <div class="px-md-5 d-flex flex-column justify-content-center col-md-7 order-1 order-md-2">
+                <h1> Robot Card Sorter</h1>
+                <p class="mb-3 lead">The perfect assistant to help your employees list your cards online is here. </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><b>Easy-to-use</b></h5>
+                        <p class="mb-3">Just plug it and let it work. Check the work at any time.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><b>Practical</b></h5>
+                        <p class="mb-3">Robot Card Sorter is small. You can put it on your desk and work aside.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- What do we do section -->
+<section class="py-5 bg-light" id="what">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-10 mx-auto px-4">
+                <h2 class="mb-4 text-muted">How does it work ?</h2>
+                <div class="row text-left">
+                    <div class="p-3 col-lg-4 col-md-6">
+                        <div class="row mb-3">
+                            <div class="text-center col-3"><i class="d-block mx-auto fa text-muted fa-4x fa-flask"></i>
+                            </div>
+                            <div class="align-self-center d-flex align-items-center px-0 px-md-2 col-9">
+                                <h5 class="mb-0"><b>&nbsp; &nbsp;Just plug it</b></h5>
+                            </div>
+                        </div>
+                        <p class="text-muted">Put it on your desk, and plug it to your computer.</p>
+                    </div>
+                    <div class="p-3 col-lg-4 col-md-6">
+                        <div class="row mb-3">
+                            <div class="text-center col-3"><i class="d-block mx-auto fa text-muted fa-4x fa-fire"></i>
+                            </div>
+                            <div class="align-self-center d-flex align-items-center px-0 px-md-2 col-9">
+                                <h5 class="mb-0"><b>&nbsp; Control it with software</b></h5>
+                            </div>
+                        </div>
+                        <p class="text-muted">Choose the language, the condition of your cards.</p>
+                    </div>
+                    <div class="p-3 col-lg-4">
+                        <div class="row mb-3">
+                            <div class="text-center col-3"><i
+                                    class="d-block mx-auto fa text-muted fa-4x fa-fighter-jet"></i></div>
+                            <div class="align-self-center d-flex align-items-center px-0 px-md-2 col-9">
+                                <h5 class="mb-0"><b>&nbsp; List online !</b></h5>
+                            </div>
+                        </div>
+                        <p class="text-muted">Click on <b>go</b> and watch it work for you. You can see the work on your computer, and check it. Once you've validated, it's online.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Price -->
+<section class="py-5 bg-white" id="price_robot">
+    <div class="container">
+        <div class="row">
+            <div class="text-center col-md-12">
+                <h1>Only one price.</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 p-2" style="margin:auto;">
+                <div class="card shadow bg-light">
+                    <div class="card shadow-body p-4 bg-light">
+                        <div class="row">
+                            <div class="col-8">
+                                <h3 class="mb-0">Monthly</h3>
+                            </div>
+                            <div class="col-4 text-right">
+                                <h2 class="mb-0"><b>€500</b></h2>
+                            </div>
+                        </div>
+                        <p class="my-3">2x to 3x your employee productivity. <br /></p>
+                        <ul class="pl-3">
+                            <li>Up to 3000 cards a day</li>
+                            <li>Check the work, up to 0% mistake everyday</li>
+                            <li>No commitment. You can send it back after one month.</li>
+                            <li>Life becomes so easy for employees !</li>
+                        </ul>
+                        <a class="btn btn-primary mt-3" href="#">Try it</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Teams -->
+<section class="py-5 text-center bg-white" id="who">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="mb-4">Team</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 px-4 mb-4 col-6 px-lg-5">
+                <a data-toggle="modal" data-target=".yellow" href="">
+                    <div class="card project">
+                        <img class="card-img rounded-circle" src="/images/yellow.jpg" alt="Card image">
+                        <div class="card-body p-0">
+                            <p class="mt-3 mb-1"><b>BLANC Swan</b></p>
+                            <p class="text-muted m-0">
+                                <small>Developper</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 px-4 mb-4 col-6 px-lg-5">
+                <a data-toggle="modal" data-target=".cyan" href="">
+                    <div class="card project">
+                        <img class="card-img rounded-circle" src="/images/cyan.jpg" alt="Card image">
+                        <div class="card-body p-0">
+                            <p class="mt-3 mb-1"><b>BOINAIDI Abdourahamane <br/> <i>dit Le Sire</i></b></p>
+                            <p class="text-muted m-0">
+                                <small>Developper - designer</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 px-4 mb-4 col-6 px-lg-5">
+                <a data-toggle="modal" data-target=".red" href="">
+                    <div class="card project">
+                        <img class="card-img rounded-circle" src="/images/red.jpg" alt="Card image">
+                        <div class="card-body p-0">
+                            <p class="mt-3 mb-1"><b>LE BRAS</b></p>
+                            <p class="text-muted m-0">
+                                <small>Developper</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

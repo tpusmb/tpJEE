@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Company management</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <section class="container-fluid">
+        <h1>My Employees</h1>
+        <article class="row ml-0 mr-0" style="min-width: 466px">
+            <div class="col-md-11">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <!-- Alert success-->
+                        <div th:if="${#httpServletRequest.getParameter('successMessage')}"
+                             class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Congratulation!</strong> <span
+                                th:text="${#httpServletRequest.getParameter('successMessage')}"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <!-- Error message -->
+                        <div th:if="${#httpServletRequest.getParameter('errorMessage')}"
+                             class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error!</strong> <span
+                                th:text="${#httpServletRequest.getParameter('errorMessage')}"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <!-- Content -->
+                        <button class="btn btn-outline-dark shadow mb-4" data-toggle="modal"
+                                data-target="#registerEmployee">ADD
+                            EMPLOYEE
+                        </button>
+                        <table class="table table-hover">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">FirstName</th>
+                                <th scope="col">LastName</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody th:if="${employees}">
+                            <tr th:each="employee: ${employees}">
+                                <th scope="row" th:text="${employee.id}">1</th>
+                                <td th:text="${employee.firstName}"></td>
+                                <td th:text="${employee.lastName}"></td>
+                                <td th:text="${employee.email}"></td>
+                                <td class="row ml-0 mr-0" th:data-content="${employee}"
+                                    style="
+                                        max-width: 166px;
+                                        min-width: 100px;
+                                    ">
+                                    <div class="col-md p-0 text-center">
+                                        <a href><i class="fa fa-eye text-primary"></i></a>
+                                    </div>
+                                    <div class="col-md p-0 text-center">
+                                        <a th:onclick="'updateModal('+${employeeStat.index}+')'" href
+                                           data-toggle="modal" data-target="#updateEmployee"><i
+                                                class="fa fa-edit text-warning"></i></a>
+                                    </div>
+                                    <div class="col-md p-0 text-center">
+                                        <a th:onclick="'deleteModal(\'Delete employee\',\'Do you want to delete this employee\', \'#deleteEmployee'+${employeeStat.index}+'\')'"
+                                           href="#">
+                                            <i class="fa fa-trash-alt text-danger"></i>
+                                        </a>
+                                        <form th:id="'deleteEmployee'+${employeeStat.index}"
+                                              th:action="@{/dashboard/employee/delete}" method="post" class="d-none">
+                                            <input type="hidden" name="_method" value="delete">
+                                            <input type="hidden" name="email" th:value="${employee.email}">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+<div layout:fragment="scripts" th:remove="tag">
+    <!-- scripts -->
+    <script th:inline="javascript">
+        let employees = /*[[${employees}]]*/ {};
+
+        function updateModal(indexEmployee) {
+            let target = '#updateEmployeeForm',
+                employee = employees[indexEmployee];
+            $(target + ' [name=lastName]').val(employee.lastName);
+            $(target + ' [name=firstName]').val(employee.firstName);
+            $(target + ' [name=email]').val(employee.email);
+        }
+    </script>
+    <script src="/js/generate_pass.js"></script>
+    <!-- Modals -->
+    <div layout:insert="pages/dashboard/partials/employee/create_employee_modal :: modal" th:remove="tag"></div>
+    <div layout:insert="pages/dashboard/partials/employee/update_employee_modal :: modal" th:remove="tag"></div>
+</div>
+</body>
+</html>

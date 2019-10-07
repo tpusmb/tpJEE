@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body layout:fragment="modal">
+<div class="modal fade" id="updateEmployee" tabindex="-1" role="dialog" aria-labelledby="updateEmployeeLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/dashboard/company/edit}" id="updateCompanyForm" th:object="${user}"
+                      method="post">
+                    <input type="hidden" name="_method" value="put"/>
+                    <input type="hidden" name="id"/>
+                    <div class="form-group">
+                        <input type="text" th:field="*{name}" class="form-control" placeholder="First Name">
+                        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                               class="form-text text-left text-danger"></small>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{lastName}" class="form-control" placeholder="Last Name">
+                        <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                               class="form-text text-left text-danger"></small>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" th:field="*{email}" class="form-control" placeholder="Email" disabled="disabled">
+                        <input type="hidden" th:field="*{email}">
+                        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                               class="form-text text-left text-danger"></small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="updateCompanyForm" class="btn btn-outline-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

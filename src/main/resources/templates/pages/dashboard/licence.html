@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/dashboard}">
+<body>
+<section layout:fragment="content" class="container">
+
+    <h1>Licence</h1>
+
+    <div sec:authorize="hasAuthority('ADMIN')" layout:insert="pages/dashboard/licence-admin :: licence-admin"
+         th:remove="tag"></div>
+
+    <div class="container" th:each="user: ${users}">
+        <h3 th:text="'User: ' + ${user.lastName} + ' ' + ${user.name}"></h3>
+        <h4 th:text="'Contact: ' + ${user.email}"></h4>
+        <button sec:authorize="hasAuthority('ADMIN')" th:attr="data-destination_email=${user.email}" type="button"
+                class="creat-licence-btn btn btn-primary"
+                data-toggle="modal" data-target="#modalCreatForm">Create
+        </button>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Licence key</th>
+                <th scope="col">Expiry Date</th>
+                <th scope="col">Used</th>
+                <th scope="col">is block</th>
+                <th sec:authorize="hasAuthority('ADMIN')" scope="col">Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="licence: ${user.licences}">
+                <td th:text="${licence.licenceKey}"></td>
+                <td th:text="${licence.expiry_date}"></td>
+                <td th:text="${licence.used}"></td>
+                <td th:text="${licence.block}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <button class="edit-licence-key btn btn-primary a-btn-slide-text" type="button"
+                            id="edit_licence"
+                            data-toggle="modal" data-target="#modalEditForm"
+                            th:attr="data-licence_key_to_edit=${licence.licenceKey},
+                            data-expiry_date=${licence.expiry_date},
+                            data-block_key=${licence.block}">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <hr/>
+    </div>
+</section>
+
+<div layout:fragment="scripts" th:remove="tag">
+    <script sec:authorize="hasAuthority('ADMIN')" src="/js/dashboard/admin-actions.js"></script>
+</div>
+
+</body>
+</html>

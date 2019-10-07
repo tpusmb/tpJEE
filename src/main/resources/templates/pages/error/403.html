@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/master}">
+<body>
+<section layout:fragment="content" class="container">
+
+    <h1>Access is Denied!</h1>
+    <a style="color: blue" th:href="@{/}">Home</a>
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+
+</section>
+</body>
+</html>

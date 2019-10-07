@@ -1,0 +1,9 @@
+@import url('_reset.css');
+@import url('_variables.css');
+@import url('_footer.css');
+@import url('_nav.css');
+@import url('_header.css');
+
+body {
+    background-color: var(--main-bg-color);
+}
