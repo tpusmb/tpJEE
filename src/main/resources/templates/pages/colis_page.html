@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/master}">
+<head>
+    <meta charset="UTF-8">
+    <title>Company management</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <section class="container-fluid">
+        <h1>Liste des colis</h1>
+        <article class="row ml-0 mr-0" style="min-width: 466px">
+            <div class="col-md-11">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <!-- Alert success-->
+                        <div th:if="${#httpServletRequest.getParameter('successMessage')}"
+                             class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Congratulation!</strong> <span
+                                th:text="${#httpServletRequest.getParameter('successMessage')}"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <!-- Error message -->
+                        <div th:if="${#httpServletRequest.getParameter('errorMessage')}"
+                             class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error!</strong> <span
+                                th:text="${#httpServletRequest.getParameter('errorMessage')}"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <!-- Content -->
+                        <button class="btn btn-outline-dark shadow mb-4" data-toggle="modal"
+                                data-target="#addColiModal">Ajouter un coli
+                        </button>
+                        <table class="table table-hover">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Poids</th>
+                                <th scope="col">Valeur</th>
+                                <th scope="col">Origin</th>
+                                <th scope="col">Destionation</th>
+                                <th scope="col">Latitude</th>
+                                <th scope="col">Longitude</th>
+                                <th scope="col">Emplacement</th>
+                                <th scope="col">Etat</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody th:if="${lesColis}">
+                            <tr th:each="coli: ${lesColis}">
+                                <th scope="row" th:text="${coli.idColis}"></th>
+                                <td th:text="${coli.poidsColis}"></td>
+                                <td th:text="${coli.valeurColis}"></td>
+                                <td th:text="${coli.origineColis}"></td>
+                                <td th:text="${coli.destinationColis}"></td>
+                                <td th:text="${coli.latitude}"></td>
+                                <td th:text="${coli.longitude}"></td>
+                                <td th:text="${coli.emplacement}"></td>
+                                <td th:text="${coli.etat}"></td>
+                                <td class="row ml-0 mr-0" th:data-content="${coli}"
+                                    style="
+                                        max-width: 166px;
+                                        min-width: 100px;
+                                    ">
+                                    <div class="col-md p-0 text-center">
+                                        <a href><i class="fa fa-eye text-primary"></i></a>
+                                    </div>
+                                    <div class="col-md p-0 text-center">
+                                        <a th:onclick="'updateModal('+${coliStat.index}+')'" href
+                                           data-toggle="modal" data-target="#updateColiModal"><i
+                                                class="fa fa-edit text-warning"></i></a>
+                                    </div>
+                                    <div class="col-md p-0 text-center">
+                                        <a th:onclick="'deleteModal(\'Delete employee\',\'Voulez vous supprimer un colis?\', \'#deleteColi'+${coliStat.index}+'\')'"
+                                           href="#">
+                                            <i class="fa fa-trash-alt text-danger"></i>
+                                        </a>
+                                        <form th:id="'deleteColi'+${coliStat.index}"
+                                              th:action="@{/colis/delete}" method="post" class="d-none">
+                                            <input type="hidden" name="_method" value="delete">
+                                            <input type="hidden" name="email" th:value="${coli.idColis}">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+<div layout:fragment="scripts" th:remove="tag">
+    <!-- scripts -->
+    <script th:inline="javascript">
+        let colis = /*[[${lesColis}]]*/ {};
+
+        function updateModal(indexColi) {
+            let target = '#updateColiForm',
+                coli = colis[indexColi];
+            $(target + ' [name=poidsColis]').val(coli.poidsColis);
+            $(target + ' [name=valeurColis]').val(coli.valeurColis);
+            $(target + ' [name=origineColis]').val(coli.origineColis);
+            $(target + ' [name=destinationColis]').val(coli.destinationColis);
+            $(target + ' [name=latitude]').val(coli.latitude);
+            $(target + ' [name=longitude]').val(coli.longitude);
+            $(target + ' [name=emplacement]').val(coli.emplacement);
+            $(target + ' [name=etat]').val(coli.etat);
+        }
+    </script>
+    <!-- Modals -->
+    <div class="modal fade" id="addColiModal" tabindex="-1" role="dialog" aria-labelledby="addColiLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add coli</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="${linkAddColi}" id="addColiForm" th:object="${formColi}"
+                          method="post">
+                        <input type="hidden" name="_method" value="put"/>
+                        <div class="form-group">
+                            <input type="number" th:field="*{poidsColis}" class="form-control" placeholder="Poids">
+                            <small th:if="${#fields.hasErrors('poidsColis')}" th:errors="*{poidsColis}"
+                                   class="form-text text-left text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" th:field="*{valeurColis}" class="form-control" placeholder="Valeur">
+                            <small th:if="${#fields.hasErrors('valeurColis')}" th:errors="*{valeurColis}"
+                                   class="form-text text-left text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" th:field="*{origineColis}" class="form-control" placeholder="Origin">
+                            <small th:if="${#fields.hasErrors('origineColis')}" th:errors="*{origineColis}"
+                                   class="form-text text-left text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" th:field="*{destinationColis}" class="form-control"
+                                   placeholder="Destination">
+                            <small th:if="${#fields.hasErrors('destinationColis')}" th:errors="*{destinationColis}"
+                                   class="form-text text-left text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" th:field="*{latitude}" class="form-control" placeholder="Latitude">
+                            <small th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"
+                                   class="form-text text-left text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" th:field="*{longitude}" class="form-control" placeholder="Longitude">
+                            <small th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}"
+                                   class="form-text text-left text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" th:field="*{emplacement}" class="form-control" placeholder="Emplacement">
+                            <small th:if="${#fields.hasErrors('emplacement')}" th:errors="*{emplacement}"
+                                   class="form-text text-left text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" th:field="*{etat}" class="form-control" placeholder="Eta">
+                            <small th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}"
+                                   class="form-text text-left text-danger"></small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" form="addColiForm" class="btn btn-outline-primary">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

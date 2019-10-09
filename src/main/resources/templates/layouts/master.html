@@ -14,16 +14,43 @@
 
 <nav layout:insert="layouts/partials/nav :: nav" th:remove="tag"></nav>
 
-<!--<header layout:insert="layouts/partials/header :: header" th:remove="tag"></header>-->
-
 <section layout:fragment="content" th:remove="tag"></section>
-
-<footer layout:insert="layouts/partials/footer :: footer" th:remove="tag"></footer>
 
 <script src="/js/jquery/jquery-3.3.1.min.js"></script>
 <script src="/js/jquery/jquery-ui.min.js"></script>
 <script src="/js/bootstrap/bootstrap.min.js"></script>
-
+<script>
+    function deleteModal(title, message, targetForm) {
+        let target = "#deleteModal";
+        $(target + " .modal-title").text(title);
+        $(target + " .modal-body").text(message);
+        $(target + " #deleteModalYes").click(function () {
+            $(targetForm).submit();
+        });
+        $(target).modal();
+    }
+</script>
 <div layout:fragment="scripts" th:remove="tag"></div>
+<!-- Delete modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <div layout:fragment="delete_modal_form" th:remove="tag"></div>
+                <button class="btn btn-success shadow-sm" id="deleteModalYes">Oui</button>
+                <button class="btn btn-danger shadow-sm" data-dismiss="modal">Non</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
