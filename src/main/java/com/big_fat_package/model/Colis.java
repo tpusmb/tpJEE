@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -17,13 +18,13 @@ import javax.validation.constraints.NotEmpty;
 public class Colis {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String idColis;
+    private int idColis;
 
-    @NotEmpty(message = "*Veuillez renseignez le poids du colis")
-    private double poidsColis;
+    @NotNull(message = "*Veuillez renseignez le poids du colis")
+    private Double poidsColis;
 
-    @NotEmpty(message = "*Veuillez renseignez la valeur du colis")
-    private double valeurColis;
+    @NotNull(message = "*Veuillez renseignez la valeur du colis")
+    private Double valeurColis;
 
     @NotEmpty(message = "*Veuillez renseignez l'origine du colis")
     private String origineColis;
@@ -32,10 +33,10 @@ public class Colis {
     private String destinationColis;
 
     @Builder.Default
-    private double latitude = 0;
+    private Double latitude = 0.0;
 
     @Builder.Default
-    private double longitude = 0;
+    private Double longitude = 0.0;
 
     @Builder.Default
     private String emplacement = "";
@@ -43,28 +44,27 @@ public class Colis {
     @Builder.Default
     private String etat = "";
 
-
-    public String getIdColis() {
+    public int getIdColis() {
         return idColis;
     }
 
-    public void setIdColis(String idColis) {
+    public void setIdColis(int idColis) {
         this.idColis = idColis;
     }
 
-    public double getPoidsColis() {
+    public Double getPoidsColis() {
         return poidsColis;
     }
 
-    public void setPoidsColis(double poidsColis) {
+    public void setPoidsColis(Double poidsColis) {
         this.poidsColis = poidsColis;
     }
 
-    public double getValeurColis() {
+    public Double getValeurColis() {
         return valeurColis;
     }
 
-    public void setValeurColis(double valeurColis) {
+    public void setValeurColis(Double valeurColis) {
         this.valeurColis = valeurColis;
     }
 
@@ -84,11 +84,35 @@ public class Colis {
         this.destinationColis = destinationColis;
     }
 
-    public double getLatitude() { return latitude; }
+    public Double getLatitude() {
+        return latitude;
+    }
 
-    public void setLatitude(double latitude) { this.latitude = latitude; }
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 
-    public double getLongitude() { return longitude; }
+    public Double getLongitude() {
+        return longitude;
+    }
 
-    public void setLongitude(double longitude) { this.longitude = longitude; }
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getEmplacement() {
+        return emplacement;
+    }
+
+    public void setEmplacement(String emplacement) {
+        this.emplacement = emplacement;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
 }

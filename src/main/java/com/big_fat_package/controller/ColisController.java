@@ -38,6 +38,7 @@ public class ColisController {
     @RequestMapping(value = {"/colis/add"}, method = RequestMethod.POST)
     public String createColis(@Valid Colis colis, RedirectAttributes redirectAttributes) {
 
+        System.out.println("yolololol");
         colisService.saveColis(colis);
         redirectAttributes.addAttribute("successMessage", "Le colis a été ajouté.");
         return "redirect:/colis/";
