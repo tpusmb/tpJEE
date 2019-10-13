@@ -27,7 +27,8 @@
                         <!-- Error message -->
                         <div th:if="${#httpServletRequest.getParameter('errorMessage')}"
                              class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Error!</strong> <span th:text="${#httpServletRequest.getParameter('errorMessage')}"></span>
+                            <strong>Error!</strong> <span
+                                th:text="${#httpServletRequest.getParameter('errorMessage')}"></span>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -36,51 +37,6 @@
                         <button class="btn btn-outline-dark shadow mb-4" data-toggle="modal"
                                 data-target="#addColiModal">Ajouter un coli
                         </button>
-
-                        <form action="#" th:action="@{/colis/add}" th:object="${formColi}" method="post" role="form" id="addColiForm">
-                            <div class="form-group">
-                                <input type="number" th:field="*{poidsColis}" class="form-control" placeholder="Poids">
-                                <small th:if="${#fields.hasErrors('poidsColis')}" th:errors="*{poidsColis}"
-                                       class="form-text text-left text-danger"></small>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" th:field="*{valeurColis}" class="form-control" placeholder="Valeur">
-                                <small th:if="${#fields.hasErrors('valeurColis')}" th:errors="*{valeurColis}"
-                                       class="form-text text-left text-danger"></small>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" th:field="*{origineColis}" class="form-control" placeholder="Origin">
-                                <small th:if="${#fields.hasErrors('origineColis')}" th:errors="*{origineColis}"
-                                       class="form-text text-left text-danger"></small>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" th:field="*{destinationColis}" class="form-control"
-                                       placeholder="Destination">
-                                <small th:if="${#fields.hasErrors('destinationColis')}" th:errors="*{destinationColis}"
-                                       class="form-text text-left text-danger"></small>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" th:field="*{latitude}" class="form-control" placeholder="Latitude">
-                                <small th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}"
-                                       class="form-text text-left text-danger"></small>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" th:field="*{longitude}" class="form-control" placeholder="Longitude">
-                                <small th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}"
-                                       class="form-text text-left text-danger"></small>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" th:field="*{emplacement}" class="form-control" placeholder="Emplacement">
-                                <small th:if="${#fields.hasErrors('emplacement')}" th:errors="*{emplacement}"
-                                       class="form-text text-left text-danger"></small>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" th:field="*{etat}" class="form-control" placeholder="Eta">
-                                <small th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}"
-                                       class="form-text text-left text-danger"></small>
-                            </div>
-                        </form>
-                        <button type="submit" form="addColiForm" class="btn btn-outline-primary">Add</button>
                         <table class="table table-hover">
                             <thead class="thead-light">
                             <tr>
@@ -113,9 +69,6 @@
                                         min-width: 100px;
                                     ">
                                     <div class="col-md p-0 text-center">
-                                        <a href><i class="fa fa-eye text-primary"></i></a>
-                                    </div>
-                                    <div class="col-md p-0 text-center">
                                         <a th:onclick="'updateModal('+${coliStat.index}+')'" href
                                            data-toggle="modal" data-target="#updateColiModal"><i
                                                 class="fa fa-edit text-warning"></i></a>
@@ -128,7 +81,7 @@
                                         <form th:id="'deleteColi'+${coliStat.index}"
                                               th:action="@{/colis/delete}" method="post" class="d-none">
                                             <input type="hidden" name="_method" value="delete">
-                                            <input type="hidden" name="email" th:value="${coli.idColis}">
+                                            <input type="hidden" name="idColis" th:value="${coli.idColis}">
                                         </form>
                                     </div>
                                 </td>
@@ -157,8 +110,12 @@
             $(target + ' [name=longitude]').val(coli.longitude);
             $(target + ' [name=emplacement]').val(coli.emplacement);
             $(target + ' [name=etat]').val(coli.etat);
+            $(target + ' [name=idColis]').val(coli.idColis);
         }
     </script>
+    <div layout:insert="pages/partials/create_coli_modal :: modal" th:remove="tag"></div>
+    <div layout:insert="pages/partials/update_coli_modal :: modal" th:remove="tag"></div>
 </div>
+
 </body>
 </html>

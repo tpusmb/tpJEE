@@ -14,9 +14,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:action="@{/colis/edit}" id="updateColiForm" th:object="${coli}"
-                      method="post">
-                    <input type="hidden" name="_method" value="put"/>
+                <form action="#" th:action="@{/colis/edit}" id="updateColiForm" th:object="${formColi}"
+                      method="post" role="form">
+                    <input type="hidden" th:field="*{idColis}"/>
                     <div class="form-group">
                         <input type="number" th:field="*{poidsColis}" class="form-control" placeholder="Poids">
                         <small th:if="${#fields.hasErrors('poidsColis')}" th:errors="*{poidsColis}"

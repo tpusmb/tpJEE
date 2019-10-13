@@ -18,7 +18,7 @@ public class ColisService {
         this.colisRepository = colisRepository;
     }
 
-    public Colis findByIdColis(String idColis) {
+    public Colis findByIdColis(int idColis) {
         return colisRepository.findByIdColis(idColis);
     }
 
@@ -44,5 +44,13 @@ public class ColisService {
      */
     public Colis editColis(Colis colis) {
         return colisRepository.save(colis);
+    }
+
+    /**
+     * Delete a colis into the database
+     * @param colis colis to remove
+     */
+    public void deleteColis(Colis colis){
+        colisRepository.delete(colis);
     }
 }

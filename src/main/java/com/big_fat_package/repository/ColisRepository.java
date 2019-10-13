@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository("colisRepository")
 public interface ColisRepository extends JpaRepository<Colis, Long> {
-    Colis findByIdColis(String idColis);
+    Colis findByIdColis(int idColis);
 }
