@@ -48,6 +48,10 @@ public class Colis {
         return idColis;
     }
 
+    public void setIdColis(int idColis) {
+        this.idColis = idColis;
+    }
+
     public Double getPoidsColis() {
         return poidsColis;
     }

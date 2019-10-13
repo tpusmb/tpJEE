@@ -14,7 +14,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" th:action="@{/colis/edit}" id="updateColiForm" th:object="${formColi}"
+                <form th:action="@{/admin/colis/edit}" id="updateColiForm" th:object="${formColi}"
                       method="post" role="form">
                     <input type="hidden" th:field="*{idColis}"/>
                     <div class="form-group">

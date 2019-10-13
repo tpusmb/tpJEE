@@ -5,39 +5,47 @@
       layout:decorate="~{layouts/master}">
 <head>
     <meta charset="UTF-8">
-    <title>Admin colis management</title>
+    <title>Operator colis management</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
     <section class="container-fluid">
-        <h1>Admin Liste des colis</h1>
+        <h1>Operator Liste des colis</h1>
         <article class="row ml-0 mr-0" style="min-width: 466px">
             <div class="col-md-11">
                 <div class="card shadow">
                     <div class="card-body">
                         <!-- Alert success-->
-                        <div th:if="${#httpServletRequest.getParameter('successMessage')}"
+                        <div th:if="${successMessage}"
                              class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>Congratulation!</strong> <span
-                                th:text="${#httpServletRequest.getParameter('successMessage')}"></span>
+                                th:text="${successMessage}"></span>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <!-- Error message -->
-                        <div th:if="${#httpServletRequest.getParameter('errorMessage')}"
+                        <div th:if="${errorMessage}"
                              class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Error!</strong> <span
-                                th:text="${#httpServletRequest.getParameter('errorMessage')}"></span>
+                                th:text="${errorMessage}"></span>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <!-- Content -->
-                        <button class="btn btn-outline-dark shadow mb-4" data-toggle="modal"
-                                data-target="#addColiModal">Ajouter un coli
-                        </button>
-                        <table class="table table-hover">
+
+                        <form th:action="@{/client/search}" id="operatorupdateColiForm" method="post" role="form">
+                            <div class="form-group">
+                                <input type="number" name="idColis" class="form-control"
+                                       placeholder="Identifient du colis">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-outline-primary" value="Rechercher">
+                            </div>
+                        </form>
+
+                        <table class="table table-hover" th:if="${coli}">
                             <thead class="thead-light">
                             <tr>
                                 <th scope="col">#</th>
@@ -49,11 +57,10 @@
                                 <th scope="col">Longitude</th>
                                 <th scope="col">Emplacement</th>
                                 <th scope="col">Etat</th>
-                                <th scope="col">Action</th>
                             </tr>
                             </thead>
-                            <tbody th:if="${lesColis}">
-                            <tr th:each="coli: ${lesColis}">
+                            <tbody>
+                            <tr>
                                 <th scope="row" th:text="${coli.idColis}"></th>
                                 <td th:text="${coli.poidsColis}"></td>
                                 <td th:text="${coli.valeurColis}"></td>
@@ -68,22 +75,6 @@
                                         max-width: 166px;
                                         min-width: 100px;
                                     ">
-                                    <div class="col-md p-0 text-center">
-                                        <a th:onclick="'updateModal('+${coliStat.index}+')'" href
-                                           data-toggle="modal" data-target="#updateColiModal"><i
-                                                class="fa fa-edit text-warning"></i></a>
-                                    </div>
-                                    <div class="col-md p-0 text-center">
-                                        <a th:onclick="'deleteModal(\'Delete employee\',\'Voulez vous supprimer un colis?\', \'#deleteColi'+${coliStat.index}+'\')'"
-                                           href="#">
-                                            <i class="fa fa-trash-alt text-danger"></i>
-                                        </a>
-                                        <form th:id="'deleteColi'+${coliStat.index}"
-                                              th:action="@{/admin/colis/delete}" method="post" class="d-none">
-                                            <input type="hidden" name="_method" value="delete">
-                                            <input type="hidden" name="idColis" th:value="${coli.idColis}">
-                                        </form>
-                                    </div>
                                 </td>
                             </tr>
                             </tbody>
@@ -94,28 +85,5 @@
         </article>
     </section>
 </div>
-<div layout:fragment="scripts" th:remove="tag">
-    <!-- scripts -->
-    <script th:inline="javascript">
-        let colis = /*[[${lesColis}]]*/ {};
-
-        function updateModal(indexColi) {
-            let target = '#updateColiForm',
-                coli = colis[indexColi];
-            $(target + ' [name=poidsColis]').val(coli.poidsColis);
-            $(target + ' [name=valeurColis]').val(coli.valeurColis);
-            $(target + ' [name=origineColis]').val(coli.origineColis);
-            $(target + ' [name=destinationColis]').val(coli.destinationColis);
-            $(target + ' [name=latitude]').val(coli.latitude);
-            $(target + ' [name=longitude]').val(coli.longitude);
-            $(target + ' [name=emplacement]').val(coli.emplacement);
-            $(target + ' [name=etat]').val(coli.etat);
-            $(target + ' [name=idColis]').val(coli.idColis);
-        }
-    </script>
-    <div layout:insert="pages/partials/create_coli_modal :: modal" th:remove="tag"></div>
-    <div layout:insert="pages/partials/update_coli_modal :: modal" th:remove="tag"></div>
-</div>
-
 </body>
 </html>

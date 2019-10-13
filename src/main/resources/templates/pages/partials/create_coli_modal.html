@@ -14,7 +14,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" th:action="@{/colis/add}" th:object="${formColi}" method="post" role="form" id="addColiForm">
+                <form action="#" th:action="@{/admin/colis/add}" th:object="${formColi}" method="post" role="form" id="addColiForm">
                     <div class="form-group">
                         <input type="number" th:field="*{poidsColis}" class="form-control" placeholder="Poids">
                         <small th:if="${#fields.hasErrors('poidsColis')}" th:errors="*{poidsColis}"

@@ -25,35 +25,34 @@ public class ColisController {
         this.colisService = colisService;
     }
 
-    @RequestMapping(value = {"/colis", "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     public ModelAndView colis() {
         List<Colis> listColis = colisService.findAll();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("lesColis", listColis);
         modelAndView.addObject("formColi", new Colis());
-        modelAndView.addObject("linkAddColi", "/colis/add");
         modelAndView.setViewName(PAGES_FOLDER + "colis_page");
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/colis/add"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/colis/add"}, method = RequestMethod.POST)
     public String createColis(@Valid Colis colis, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()){
-            return "redirect:/colis/";
+            return "redirect:/admin/";
         }
 
         colisService.saveColis(colis);
         redirectAttributes.addAttribute("successMessage", "Le colis a été ajouté.");
-        return "redirect:/colis/";
+        return "redirect:/admin/";
     }
 
-    @RequestMapping(value = {"/colis/edit"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/colis/edit"}, method = RequestMethod.POST)
     public String editColis(Colis colis, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()){
-            return "redirect:/colis/";
+            return "redirect:/admin/";
         }
         Colis target_coli = colisService.findByIdColis(colis.getIdColis());
         target_coli.setPoidsColis(colis.getPoidsColis());
@@ -64,15 +63,15 @@ public class ColisController {
         target_coli.setLongitude(colis.getLongitude());
         target_coli.setEmplacement(colis.getEmplacement());
         target_coli.setEtat(colis.getEtat());
-        colisService.editColis(colis);
+        colisService.editColis(target_coli);
         redirectAttributes.addAttribute("successMessage", "Le colis a été editer.");
-        return "redirect:/colis/";
+        return "redirect:/admin/";
     }
 
-    @RequestMapping(value = {"/colis/delete"}, method = RequestMethod.DELETE)
+    @RequestMapping(value = {"/admin/colis/delete"}, method = RequestMethod.DELETE)
     public String deleteEmployee(Colis colis, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (bindingResult.hasErrors()){
-            return "redirect:/colis/";
+            return "redirect:/admin/";
         }
         Colis target_coli = colisService.findByIdColis(colis.getIdColis());
         colisService.deleteColis(target_coli);

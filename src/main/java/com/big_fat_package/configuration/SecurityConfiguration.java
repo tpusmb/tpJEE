@@ -24,7 +24,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // Pages roles
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/colis/**").permitAll();
+                .antMatchers("/admin/**").permitAll()
+                .antMatchers("/client/**").permitAll()
+                .antMatchers("/operator/**").permitAll();
 
         // Errors
         http.exceptionHandling().accessDeniedPage("/403");
