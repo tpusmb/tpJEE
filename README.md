@@ -24,3 +24,5 @@ Put the username and password for mysql connection
 
 To build `mvn clean install`
 To run `mvn spring-boot:run`
+
+The default [link](http://localhost:9090)
