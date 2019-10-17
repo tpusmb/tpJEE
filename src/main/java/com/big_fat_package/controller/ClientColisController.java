@@ -23,7 +23,7 @@ public class ClientColisController {
         this.colisService = colisService;
     }
 
-    @RequestMapping(value = {"/client"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/client", "/"}, method = RequestMethod.GET)
     public ModelAndView colis() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(PAGES_FOLDER + "client_colis_page");
