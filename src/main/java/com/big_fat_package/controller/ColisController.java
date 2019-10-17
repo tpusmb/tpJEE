@@ -39,7 +39,7 @@ public class ColisController {
     @RequestMapping(value = {"/admin/colis/add"}, method = RequestMethod.POST)
     public String createColis(@Valid Colis colis, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "redirect:/admin/";
         }
 
@@ -51,7 +51,7 @@ public class ColisController {
     @RequestMapping(value = {"/admin/colis/edit"}, method = RequestMethod.POST)
     public String editColis(Colis colis, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "redirect:/admin/";
         }
         Colis target_coli = colisService.findByIdColis(colis.getIdColis());
@@ -70,7 +70,7 @@ public class ColisController {
 
     @RequestMapping(value = {"/admin/colis/delete"}, method = RequestMethod.DELETE)
     public String deleteEmployee(Colis colis, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "redirect:/admin/";
         }
         Colis target_coli = colisService.findByIdColis(colis.getIdColis());

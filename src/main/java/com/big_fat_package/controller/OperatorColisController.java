@@ -31,7 +31,6 @@ public class OperatorColisController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("lesColis", listColis);
         modelAndView.addObject("linkEdit", "/operator/colis/edit");
-
         modelAndView.setViewName(PAGES_FOLDER + "operator_colis_page");
         return modelAndView;
     }

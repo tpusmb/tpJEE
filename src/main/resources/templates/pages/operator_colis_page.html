@@ -33,7 +33,8 @@
                             <input type="text" name="emplacement" class="form-control" placeholder="Emplacement">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="etat" class="form-control" placeholder="Eta">
+                            <input list="colisEtatList" name="etat" class="form-control" placeholder="Etat">
+                            <div layout:insert="pages/partials/etatsList :: etatsList" th:remove="tag"></div>
                         </div>
                     </form>
                 </div>

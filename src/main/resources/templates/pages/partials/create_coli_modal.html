@@ -52,7 +52,8 @@
                                class="form-text text-left text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <input type="text" th:field="*{etat}" class="form-control" placeholder="Eta">
+                        <input list="colisEtatList" name="etat" class="form-control" placeholder="Etat">
+                        <div layout:insert="pages/partials/etatsList :: etatsList" th:remove="tag"></div>
                         <small th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}"
                                class="form-text text-left text-danger"></small>
                     </div>
