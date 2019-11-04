@@ -1,7 +1,6 @@
-# Centralize
+# TP1
 
-This repo implement a spring boot website to manage all the companie robot.
-For customer manage card listing etc
+**BLANC Swan & LE BRAS Clément**
 
 ## Setup
 
